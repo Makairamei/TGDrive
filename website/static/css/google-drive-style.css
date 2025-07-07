@@ -1,0 +1,509 @@
+/* Google Drive Style CSS */
+
+/* Main Layout */
+.google-drive-sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e8eaed;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.google-main-content {
+    margin-left: 260px;
+    min-height: 100vh;
+    background: #ffffff;
+}
+
+/* Sidebar Header */
+.google-drive-sidebar .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: none;
+    margin-bottom: 8px;
+}
+
+.google-drive-sidebar .sidebar-header img {
+    width: 24px;
+    height: 24px;
+}
+
+.google-drive-sidebar .sidebar-header span {
+    font-size: 22px;
+    color: #5f6368;
+    font-weight: 400;
+    margin-left: 8px;
+}
+
+/* New Button - Google Style */
+.google-new-button {
+    margin: 0 16px 24px;
+    padding: 12px 24px;
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 24px;
+    color: #3c4043;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
+    transition: all 0.2s ease;
+}
+
+.google-new-button:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,.30), 0 4px 8px 3px rgba(60,64,67,.15);
+}
+
+.google-new-button svg {
+    color: #1a73e8;
+}
+
+/* Sidebar Menu */
+.google-sidebar-menu {
+    padding: 0 8px;
+    flex: 1;
+}
+
+.google-sidebar-menu .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 2px 0;
+    border-radius: 24px;
+    color: #3c4043;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    gap: 16px;
+}
+
+.google-sidebar-menu .menu-item:hover {
+    background-color: #f1f3f4;
+}
+
+.google-sidebar-menu .menu-item.selected-item {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+.google-sidebar-menu .menu-item svg {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.google-sidebar-menu .menu-item.selected-item svg {
+    opacity: 1;
+    color: #1a73e8;
+}
+
+/* Storage Widget */
+.storage-widget {
+    margin: 24px 16px 16px;
+    padding: 16px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.storage-title {
+    font-size: 14px;
+    color: #3c4043;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.storage-bar {
+    width: 100%;
+    height: 4px;
+    background: #e8eaed;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.storage-used {
+    height: 100%;
+    background: linear-gradient(to right, #4285f4, #ea4335, #fbbc04);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.storage-text {
+    font-size: 12px;
+    color: #5f6368;
+    margin-bottom: 12px;
+}
+
+.storage-upgrade-btn {
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    color: #1a73e8;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.storage-upgrade-btn:hover {
+    background: #f8f9fa;
+}
+
+/* Header */
+.google-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    border-bottom: 1px solid #e8eaed;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.search-section {
+    flex: 1;
+    max-width: 600px;
+}
+
+.google-search-bar {
+    display: flex;
+    align-items: center;
+    background: #f1f3f4;
+    border-radius: 8px;
+    padding: 8px 16px;
+    gap: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.google-search-bar:hover {
+    background: #e8eaed;
+}
+
+.google-search-bar:focus-within {
+    background: #ffffff;
+    box-shadow: 0 1px 6px rgba(32,33,36,.28);
+}
+
+.google-search-bar .search-icon {
+    color: #5f6368;
+    opacity: 0.7;
+}
+
+.google-search-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #3c4043;
+}
+
+.google-search-bar input::placeholder {
+    color: #5f6368;
+}
+
+/* Header Actions */
+.google-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.google-view-toggle {
+    display: flex;
+    background: #f1f3f4;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.google-view-toggle .view-toggle-btn {
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #5f6368;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.google-view-toggle .view-toggle-btn.active {
+    background: #1a73e8;
+    color: #ffffff;
+}
+
+.google-view-toggle .view-toggle-btn:hover:not(.active) {
+    background: #e8eaed;
+}
+
+/* Breadcrumb */
+.google-breadcrumb {
+    padding: 12px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.google-breadcrumb .breadcrumb-item {
+    color: #5f6368;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+}
+
+.google-breadcrumb .breadcrumb-item:hover {
+    color: #1a73e8;
+}
+
+.google-breadcrumb .breadcrumb-item svg {
+    opacity: 0.7;
+}
+
+/* Content Area */
+.content-area {
+    padding: 24px;
+}
+
+.page-content {
+    display: none;
+}
+
+.page-content.active {
+    display: block;
+}
+
+/* Beranda Content */
+.beranda-header h2 {
+    font-size: 32px;
+    font-weight: 400;
+    color: #3c4043;
+    margin: 0 0 32px 0;
+}
+
+.beranda-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.section h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #3c4043;
+    margin: 0 0 16px 0;
+}
+
+.folder-suggestions, .file-suggestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.suggestion-item {
+    padding: 16px;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.suggestion-item:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 3px rgba(60,64,67,.30);
+}
+
+.suggestion-item svg {
+    color: #5f6368;
+}
+
+.suggestion-item .item-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c4043;
+}
+
+.suggestion-item .item-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #5f6368;
+}
+
+/* Loading States */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    color: #5f6368;
+    font-size: 14px;
+}
+
+/* Placeholder States */
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 64px;
+    text-align: center;
+}
+
+.placeholder svg {
+    color: #dadce0;
+    margin-bottom: 24px;
+}
+
+.placeholder h3 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #3c4043;
+    margin: 0 0 8px 0;
+}
+
+.placeholder p {
+    font-size: 14px;
+    color: #5f6368;
+    margin: 0;
+}
+
+/* Table Styles for Google Drive */
+.google-main-content .directory table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.google-main-content .directory th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    color: #5f6368;
+    border-bottom: 1px solid #e8eaed;
+    background: #f8f9fa;
+}
+
+.google-main-content .directory td {
+    padding: 8px 16px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.google-main-content .directory tr:hover {
+    background: #f8f9fa;
+}
+
+.google-main-content .directory .body-tr {
+    cursor: pointer;
+}
+
+.google-main-content .directory .td-align {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #3c4043;
+}
+
+.google-main-content .directory .td-align img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Action Buttons - Hidden by default */
+.action-btn.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .google-drive-sidebar {
+        width: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .google-drive-sidebar.open {
+        transform: translateX(0);
+    }
+    
+    .google-main-content {
+        margin-left: 0;
+    }
+    
+    .google-header {
+        padding: 8px 16px;
+    }
+    
+    .content-area {
+        padding: 16px;
+    }
+    
+    .folder-suggestions, .file-suggestions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .google-drive-sidebar {
+        background: #202124;
+        border-right-color: #3c4043;
+    }
+    
+    .google-main-content {
+        background: #202124;
+    }
+    
+    .google-header {
+        background: #202124;
+        border-bottom-color: #3c4043;
+    }
+    
+    .google-search-bar {
+        background: #3c4043;
+    }
+    
+    .google-search-bar:hover {
+        background: #5f6368;
+    }
+    
+    .google-sidebar-menu .menu-item {
+        color: #e8eaed;
+    }
+    
+    .storage-widget {
+        background: #2d2e30;
+        border-color: #3c4043;
+    }
+    
+    .storage-title,
+    .beranda-header h2,
+    .section h3 {
+        color: #e8eaed;
+    }
+}

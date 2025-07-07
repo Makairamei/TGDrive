@@ -7,6 +7,7 @@
     <title>TG Drive</title>
     <link rel="stylesheet" href="static/home.css" />
     <link rel="stylesheet" href="static/css/context-menu.css" />
+    <link rel="stylesheet" href="static/css/google-drive-style.css" />
 
     <!-- Fonts Start -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,14 +21,17 @@
 <body>
     <div class="container">
         <!-- Sidebar Start -->
-        <div class="sidebar">
+        <div class="sidebar google-drive-sidebar">
             <div class="sidebar-header">
                 <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png" />
                 <span>TG Drive</span>
             </div>
 
-            <button id="new-button" class="new-button">
-                <img src="static/assets/plus-icon.svg" />New
+            <button id="new-button" class="new-button google-new-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                </svg>
+                New
             </button>
 
             <div id="new-upload" class="new-upload">
@@ -50,9 +54,63 @@
                 </div>
             </div>
 
-            <div class="sidebar-menu">
-                <a class="selected-item" href="/?path=/"><img src="static/assets/home-icon.svg" />Home</a>
-                <a class="unselected-item" href="/?path=/trash"><img src="static/assets/trash-icon.svg" />Trash</a>
+            <div class="sidebar-menu google-sidebar-menu">
+                <a id="beranda-btn" class="menu-item selected-item" href="/?page=beranda">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
+                    </svg>
+                    Beranda
+                </a>
+                
+                <a id="drive-saya-btn" class="menu-item unselected-item" href="/?path=/">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,19L2,9.5L3.5,8L12,16.5L20.5,8L22,9.5L12,19Z"/>
+                    </svg>
+                    Drive Saya
+                </a>
+                
+                <a id="drive-bersama-btn" class="menu-item unselected-item" href="/?page=shared">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16,4C18.2,4 20,5.8 20,8C20,10.2 18.2,12 16,12C15.7,12 15.4,11.9 15.1,11.9C14.6,13.3 13.4,14.4 11.9,14.8C11.4,15.9 10.3,16.5 9.1,16.5C8.8,16.5 8.5,16.4 8.2,16.4C7.1,17.4 5.7,18 4.2,18C1.9,18 0,16.1 0,13.8C0,11.5 1.9,9.6 4.2,9.6C4.5,9.6 4.8,9.7 5.1,9.7C5.6,8.3 6.8,7.2 8.3,6.8C8.8,5.7 9.9,5.1 11.1,5.1C11.4,5.1 11.7,5.2 12,5.2C13.1,4.2 14.5,3.6 16,3.6V4Z"/>
+                    </svg>
+                    Drive Bersama
+                </a>
+                
+                <a id="terbaru-btn" class="menu-item unselected-item" href="/?page=recent">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                    </svg>
+                    Terbaru
+                </a>
+                
+                <a id="berbintang-btn" class="menu-item unselected-item" href="/?page=starred">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                    </svg>
+                    Berbintang
+                </a>
+                
+                <a id="sampah-btn" class="menu-item unselected-item" href="/?path=/trash">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/>
+                    </svg>
+                    Sampah
+                </a>
+            </div>
+            
+            <!-- Storage Info Widget -->
+            <div class="storage-widget">
+                <div class="storage-title">Penyimpanan</div>
+                <div class="storage-bar">
+                    <div class="storage-used" style="width: 0%"></div>
+                </div>
+                <div class="storage-text" id="storage-text">0 GB dari unlimited</div>
+                <button class="storage-upgrade-btn" onclick="alert('Unlimited storage!')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                    </svg>
+                    Dapatkan penyimpanan ekstra
+                </button>
             </div>
         </div>
         <!-- Sidebar End -->
@@ -143,17 +201,22 @@
         <!-- File Uploader End -->
 
         <!-- Main Content Start -->
-        <div class="main-content">
-            <div class="header">
-                <div class="search-bar">
-                    <img src="static/assets/search-icon.svg" />
-                    <form id="search-form">
-                        <input id="file-search" type="text" placeholder="Search in Drive" autocomplete="off" />
-                    </form>
+        <div class="main-content google-main-content">
+            <!-- Google Drive Style Header -->
+            <div class="google-header">
+                <div class="search-section">
+                    <div class="search-bar google-search-bar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="search-icon">
+                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                        </svg>
+                        <form id="search-form">
+                            <input id="file-search" type="text" placeholder="Search in Drive" autocomplete="off" />
+                        </form>
+                    </div>
                 </div>
                 
-                <div class="header-actions">
-                    <div class="view-toggle">
+                <div class="header-actions google-header-actions">
+                    <div class="view-toggle google-view-toggle">
                         <button class="view-toggle-btn active" id="list-view-btn" title="List view">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3,5H21V7H3V5M3,13V11H21V13H3M3,19V17H21V19H3Z"/>
@@ -168,23 +231,30 @@
                         </button>
                     </div>
                     
-                    <button id="select-mode-btn" class="action-btn" title="Select multiple files">
-                        <img src="static/assets/check-icon.svg" alt="Select" />
+                    <!-- Hidden select/move buttons - will be shown via context menu -->
+                    <button id="select-mode-btn" class="action-btn hidden" title="Select multiple files">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                        </svg>
                         Select
                     </button>
-                    <button id="move-files-btn" class="action-btn disabled" title="Move selected files" disabled>
-                        <img src="static/assets/move-icon.svg" alt="Move" />
+                    <button id="move-files-btn" class="action-btn hidden disabled" title="Move selected files" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,4L6,9L11,14V11H18V7H11V4Z"/>
+                        </svg>
                         Move (<span id="selected-count-header">0</span>)
                     </button>
                     <button id="cancel-select-btn" class="action-btn hidden" title="Cancel selection">
-                        <img src="static/assets/cancel-icon.svg" alt="Cancel" />
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                        </svg>
                         Cancel
                     </button>
                 </div>
             </div>
             
             <!-- Breadcrumb Navigation -->
-            <div class="breadcrumb-nav" id="breadcrumb-nav">
+            <div class="breadcrumb-nav google-breadcrumb" id="breadcrumb-nav">
                 <a href="/?path=/" class="breadcrumb-item">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
@@ -193,23 +263,82 @@
                 </a>
             </div>
 
-            <div class="directory" id="directory-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="checkbox-column hidden">
-                                <input type="checkbox" id="select-all-checkbox" title="Select all files">
-                            </th>
-                            <th>Name</th>
-                            <th>File Size</th>
-                            <th>More</th>
-                        </tr>
-                    </thead>
-                    <tbody id="directory-data"></tbody>
-                </table>
+            <!-- Dynamic Content Area -->
+            <div id="content-area" class="content-area">
+                <!-- Beranda Content -->
+                <div id="beranda-content" class="page-content active">
+                    <div class="beranda-header">
+                        <h2>Selamat datang di Drive</h2>
+                    </div>
+                    
+                    <div class="beranda-sections">
+                        <!-- Folder yang Disarankan -->
+                        <div class="section">
+                            <h3>Folder yang disarankan</h3>
+                            <div class="folder-suggestions" id="folder-suggestions">
+                                <div class="loading">Loading folders...</div>
+                            </div>
+                        </div>
+                        
+                        <!-- File Terbaru -->
+                        <div class="section">
+                            <h3>File yang disarankan</h3>
+                            <div class="file-suggestions" id="file-suggestions">
+                                <div class="loading">Loading files...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drive Content (default file explorer) -->
+                <div id="drive-content" class="page-content">
+                    <div class="directory" id="directory-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-column hidden">
+                                        <input type="checkbox" id="select-all-checkbox" title="Select all files">
+                                    </th>
+                                    <th>Name</th>
+                                    <th>File Size</th>
+                                    <th>More</th>
+                                </tr>
+                            </thead>
+                            <tbody id="directory-data"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Files Content -->
+                <div id="recent-content" class="page-content">
+                    <div class="recent-files" id="recent-files">
+                        <div class="loading">Loading recent files...</div>
+                    </div>
+                </div>
+
+                <!-- Starred Files Content -->
+                <div id="starred-content" class="page-content">
+                    <div class="starred-files" id="starred-files">
+                        <div class="loading">Loading starred files...</div>
+                    </div>
+                </div>
+
+                <!-- Shared Files Content -->
+                <div id="shared-content" class="page-content">
+                    <div class="shared-files" id="shared-files">
+                        <div class="placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16,4C18.2,4 20,5.8 20,8C20,10.2 18.2,12 16,12C15.7,12 15.4,11.9 15.1,11.9C14.6,13.3 13.4,14.4 11.9,14.8C11.4,15.9 10.3,16.5 9.1,16.5C8.8,16.5 8.5,16.4 8.2,16.4C7.1,17.4 5.7,18 4.2,18C1.9,18 0,16.1 0,13.8C0,11.5 1.9,9.6 4.2,9.6C4.5,9.6 4.8,9.7 5.1,9.7C5.6,8.3 6.8,7.2 8.3,6.8C8.8,5.7 9.9,5.1 11.1,5.1C11.4,5.1 11.7,5.2 12,5.2C13.1,4.2 14.5,3.6 16,3.6V4Z"/>
+                            </svg>
+                            <h3>Drive Bersama (Coming Soon)</h3>
+                            <p>Fitur berbagi drive akan tersedia segera</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="static/js/extra.js"></script>
     <script src="static/js/apiHandler.js"></script>
     <script src="static/js/sidebar.js"></script>
@@ -218,6 +347,7 @@
     <script src="static/js/moveFiles.js"></script>
     <script src="static/js/context-menu.js"></script>
     <script src="static/js/google-drive-enhancements.js"></script>
+    <script src="static/js/google-drive-navigation.js"></script>
 </body>
 
 </html>
