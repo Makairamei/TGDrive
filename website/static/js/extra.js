@@ -15,13 +15,28 @@ function getFolderAuthFromPath() {
 }
 
 // Changing sidebar section class
-if (getCurrentPath() !== '/') {
-    const sections = document.querySelector('.sidebar-menu').getElementsByTagName('a')
-    sections[0].setAttribute('class', 'unselected-item')
+const currentPath = getCurrentPath();
+const sections = document.querySelector('.sidebar-menu').getElementsByTagName('a');
 
-    if (getCurrentPath().includes('/trash')) {
-        sections[1].setAttribute('class', 'selected-item')
-    }
+// Reset all to unselected first
+Array.from(sections).forEach(section => {
+    section.setAttribute('class', 'unselected-item');
+});
+
+// Set active based on current path
+if (currentPath === '/home') {
+    // Beranda active
+    sections[0].setAttribute('class', 'selected-item');
+} else if (currentPath.includes('/trash')) {
+    // Find Sampah/Trash and set active
+    Array.from(sections).forEach(section => {
+        if (section.textContent.trim() === 'Sampah') {
+            section.setAttribute('class', 'selected-item');
+        }
+    });
+} else {
+    // Drive Saya active (for any other folder path including root "/")
+    sections[1].setAttribute('class', 'selected-item');
 }
 
 function convertBytes(bytes) {

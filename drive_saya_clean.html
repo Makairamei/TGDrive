@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Saya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+<!-- Main Container -->
+<div class="max-w-7xl mx-auto bg-white min-h-screen">
+    
+    <!-- Header Section -->
+    <div class="px-6 py-4 border-b border-gray-200">
+        <!-- Judul Drive Saya -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                <h1 class="text-2xl font-normal text-gray-900">Drive Saya</h1>
+                <button class="p-1 rounded hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-2 border border-gray-300 rounded bg-blue-50 text-blue-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <button class="p-2 border border-gray-300 rounded hover:bg-gray-50">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Filter Bar - Tepat di bawah judul -->
+        <div class="flex gap-3">
+            <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                <span>Jenis</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                <span>Orang</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                <span>Dimodifikasi</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                <span>Sumber</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Tabel File Section -->
+    <div class="px-6">
+        <!-- Header Tabel -->
+        <div class="grid grid-cols-4 gap-4 py-3 border-b border-gray-200 text-xs font-medium text-gray-600 uppercase tracking-wide">
+            <div class="flex items-center gap-1">
+                <span>Nama</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="text-center">Pemilik</div>
+            <div class="text-center">Tanggal diubah</div>
+            <div class="text-center">Ukuran file</div>
+        </div>
+        
+        <!-- File List -->
+        <div class="divide-y divide-gray-100">
+            <!-- File 1: Folder tes -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📁</span>
+                    <span class="text-sm text-gray-900">tes</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">19 jam</div>
+                <div class="text-center text-sm text-gray-700">—</div>
+            </div>
+            
+            <!-- File 2: Folder Anime -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📁</span>
+                    <span class="text-sm text-gray-900">Anime</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">1 hari</div>
+                <div class="text-center text-sm text-gray-700">—</div>
+            </div>
+            
+            <!-- File 3: Folder Donghua -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📁</span>
+                    <span class="text-sm text-gray-900">Donghua</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">1 hari</div>
+                <div class="text-center text-sm text-gray-700">—</div>
+            </div>
+            
+            <!-- File 4: backup script -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📄</span>
+                    <span class="text-sm text-gray-900">backup_script_final_vfix (1).ipynb</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">7 jam</div>
+                <div class="text-center text-sm text-gray-700">—</div>
+            </div>
+            
+            <!-- File 5: Video Anichin -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">🎞️</span>
+                    <span class="text-sm text-gray-900">[ANICHIN.REST][Super_Cube][EP05].[1080p].mp4</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">17 jam</div>
+                <div class="text-center text-sm text-gray-700">109 KB</div>
+            </div>
+            
+            <!-- File 6: Video OP -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">🎞️</span>
+                    <span class="text-sm text-gray-900">OP-1124-FULLHD-SAMEHADAKU.CARE.mp4</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">19 jam</div>
+                <div class="text-center text-sm text-gray-700">242.79 MB</div>
+            </div>
+            
+            <!-- File 7: Documents -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📊</span>
+                    <span class="text-sm text-gray-900">Data_Analysis_Report.xlsx</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">2 hari</div>
+                <div class="text-center text-sm text-gray-700">1.2 MB</div>
+            </div>
+            
+            <!-- File 8: Image -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">🖼️</span>
+                    <span class="text-sm text-gray-900">screenshot_project.png</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">3 hari</div>
+                <div class="text-center text-sm text-gray-700">856 KB</div>
+            </div>
+            
+            <!-- File 9: PDF -->
+            <div class="grid grid-cols-4 gap-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors">
+                <div class="flex items-center gap-3">
+                    <span class="text-lg">📕</span>
+                    <span class="text-sm text-gray-900">Tutorial_FastAPI.pdf</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                    <span class="text-sm text-gray-700">saya</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">5 hari</div>
+                <div class="text-center text-sm text-gray-700">3.4 MB</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -26,8 +26,8 @@ document.getElementById('pass-login').addEventListener('click', async () => {
 
 })
 
-async function getCurrentDirectory() {
-    let path = getCurrentPath()
+async function getCurrentDirectory(customPath = null) {
+    let path = customPath || getCurrentPath()
     if (path === 'redirect') {
         return
     }

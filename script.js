@@ -1,4 +1,22 @@
-// Mock data for files and folders
+// Mock data for files and folders based on the screenshot
+const mockFolders = [
+    { name: "All File", type: "folder", icon: "folder", owner: "saya", modified: "—", size: "—" },
+    { name: "App", type: "folder", icon: "folder", owner: "saya", modified: "2 Jun", size: "—" },
+    { name: "BACKUP JUNI 2025", type: "folder", icon: "folder", owner: "saya", modified: "29 Jun", size: "—" },
+    { name: "BackupCache", type: "folder", icon: "folder", owner: "saya", modified: "29 Jun", size: "—" },
+    { name: "BackupDestination", type: "folder", icon: "folder", owner: "saya", modified: "30 Jun", size: "—" },
+    { name: "Colab Notebooks", type: "folder", icon: "folder", owner: "saya", modified: "26 Jun", size: "—" },
+    { name: "Data baru", type: "folder", icon: "folder", owner: "saya", modified: "16 Mei 2024", size: "—" },
+    { name: "Data PT", type: "folder", icon: "folder", owner: "saya", modified: "16 Mei 2024", size: "—" },
+    { name: "Folder tanpa nama", type: "folder", icon: "folder", owner: "saya", modified: "11 Jan 2024", size: "—" },
+    { name: "KEY SSH", type: "folder", icon: "folder", owner: "saya", modified: "2 Mei", size: "—" },
+    { name: "LOG_TRANSFER", type: "folder", icon: "folder", owner: "saya", modified: "29 Jun", size: "—" },
+    { name: "Paspor", type: "folder", icon: "folder", owner: "saya", modified: "5 Jun", size: "—" },
+    { name: "Proof of transaction", type: "file", icon: "insert_drive_file", owner: "saya", modified: "18 Okt 2024", size: "—" },
+    { name: "tes", type: "file", icon: "insert_drive_file", owner: "saya", modified: "17 Nov 2024", size: "—" },
+    { name: "Toy", type: "folder", icon: "folder", owner: "saya", modified: "29 Jun", size: "—" }
+];
+
 const mockFiles = [
     {
         id: 1,
@@ -102,22 +120,6 @@ const mockFiles = [
     }
 ];
 
-const mockFolders = [
-    { name: "App", owner: "saya", modified: "2 Jun", size: "—" },
-    { name: "BACKUP JUNI 2025", owner: "saya", modified: "29 Jun", size: "—" },
-    { name: "BackupCache", owner: "saya", modified: "29 Jun", size: "—" },
-    { name: "BackupDestination", owner: "saya", modified: "30 Jun", size: "—" },
-    { name: "Colab Notebooks", owner: "saya", modified: "26 Jun", size: "—" },
-    { name: "Data baru", owner: "saya", modified: "16 Mei 2024", size: "—" },
-    { name: "Data PT", owner: "saya", modified: "16 Mei 2024", size: "—" },
-    { name: "Folder tanpa nama", owner: "saya", modified: "11 Jan 2024", size: "—" },
-    { name: "KEY SSH", owner: "saya", modified: "2 Mei", size: "—" },
-    { name: "LOG_TRANSFER", owner: "saya", modified: "29 Jun", size: "—" },
-    { name: "Paspor", owner: "saya", modified: "5 Jun", size: "—" },
-    { name: "Proof of transaction", owner: "saya", modified: "18 Okt 2024", size: "—" },
-    { name: "tes", owner: "saya", modified: "17 Nov 2024", size: "—" }
-];
-
 const sharedDrives = [
     { name: "04", owner: "File milik 影化藝术高中", members: "2 grup • 4 orang" },
     { name: "24/10/04 admin@faxxy.web.id", owner: "File milik faxxy.web.id", members: "2 orang" },
@@ -132,7 +134,7 @@ const sharedDrives = [
 ];
 
 // State management
-let currentView = 'home';
+let currentView = 'my-drive';
 let currentLayout = 'list';
 let searchQuery = '';
 
@@ -147,8 +149,22 @@ const mainContent = document.querySelector('.main-content');
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
+    // Pastikan "Drive Saya" aktif saat load
+    setActiveNavigation('Drive Saya');
     renderContent();
 });
+
+function setActiveNavigation(sectionName) {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        const text = item.querySelector('span:last-child').textContent;
+        if (text === sectionName) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
 
 function initializeEventListeners() {
     // Navigation items
@@ -185,6 +201,42 @@ function initializeEventListeners() {
     const menuBtn = document.querySelector('.menu-btn');
     menuBtn.addEventListener('click', () => {
         toggleSidebar();
+    });
+
+    // Info button
+    const infoBtn = document.querySelector('.info-btn');
+    if (infoBtn) {
+        infoBtn.addEventListener('click', () => {
+            alert('Informasi tentang Google Drive');
+        });
+    }
+
+    // Dropdown button
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', () => {
+            alert('Dropdown menu untuk Drive Saya');
+        });
+    }
+
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn-toolbar');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterType = btn.querySelector('span:first-child').textContent;
+            alert(`Filter: ${filterType}`);
+        });
+    });
+
+    // Folder cards
+    const folderCards = document.querySelectorAll('.folder-card');
+    folderCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (!e.target.closest('.folder-menu-btn')) {
+                const folderName = card.querySelector('.folder-name').textContent;
+                alert(`Membuka folder: ${folderName}`);
+            }
+        });
     });
 }
 
@@ -237,22 +289,26 @@ function toggleView(view, btn) {
     currentLayout = view;
     
     // Apply grid view class
-    const filesTable = document.querySelector('.files-table');
-    if (view === 'grid') {
-        filesTable.classList.add('grid-view');
-    } else {
-        filesTable.classList.remove('grid-view');
+    const filesTable = document.querySelector('.suggested-files-table');
+    if (filesTable) {
+        if (view === 'grid') {
+            filesTable.classList.add('grid-view');
+        } else {
+            filesTable.classList.remove('grid-view');
+        }
     }
     
     renderContent();
 }
 
 function renderContent() {
+    console.log('Rendering content for view:', currentView);
     switch(currentView) {
         case 'home':
             renderHomePage();
             break;
         case 'my-drive':
+            console.log('Calling renderMyDrive()');
             renderMyDrive();
             break;
         case 'shared-drives':
@@ -273,40 +329,60 @@ function renderContent() {
 }
 
 function renderHomePage() {
-    pageTitle.textContent = 'Selamat datang di Drive';
+    // For home page, we need to replace the content with the original welcome layout
+    const pageTitle = document.querySelector('.page-title');
+    const mainContent = document.querySelector('.main-content');
     
-    // Show default home content with suggested folders and files
-    const filteredFiles = filterFiles(mockFiles);
-    renderFileList(filteredFiles);
-}
-
-function renderMyDrive() {
-    pageTitle.textContent = 'Drive Saya';
+    if (pageTitle) pageTitle.textContent = 'Selamat datang di Drive';
     
-    // Replace main content with Drive Saya view
     mainContent.innerHTML = `
         <div class="content-header">
-            <h1 class="page-title">Drive Saya</h1>
-            <div class="toolbar">
-                <div class="filter-controls">
-                    <select class="filter-select">
-                        <option>Jenis</option>
-                        <option>Folder</option>
-                        <option>Dokumen</option>
-                        <option>Gambar</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>Orang</option>
-                        <option>Saya</option>
-                        <option>Dibagikan</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>Dimodifikasi</option>
-                        <option>Hari ini</option>
-                        <option>Minggu ini</option>
-                        <option>Bulan ini</option>
-                    </select>
-                    <input type="text" placeholder="Sumber" class="filter-input">
+            <h1 class="page-title">Selamat datang di Drive</h1>
+            <button class="info-btn">
+                <span class="material-icons">info_outline</span>
+            </button>
+        </div>
+
+        <!-- Suggested Folders Section -->
+        <section class="suggested-folders-section">
+            <div class="section-header-with-arrow">
+                <span class="material-icons expand-icon">expand_more</span>
+                <h2>Folder yang disarankan</h2>
+            </div>
+            <div class="suggested-folders-grid">
+                <div class="folder-card">
+                    <div class="folder-card-content">
+                        <span class="material-icons folder-icon-large">folder</span>
+                        <div class="folder-info">
+                            <div class="folder-name">All File</div>
+                            <div class="folder-location">Di Dibagikan kepada saya</div>
+                        </div>
+                    </div>
+                    <button class="folder-menu-btn">
+                        <span class="material-icons">more_vert</span>
+                    </button>
+                </div>
+                <div class="folder-card">
+                    <div class="folder-card-content">
+                        <span class="material-icons folder-icon-large">folder</span>
+                        <div class="folder-info">
+                            <div class="folder-name">BackupDestination</div>
+                            <div class="folder-location">Di Drive Saya</div>
+                        </div>
+                    </div>
+                    <button class="folder-menu-btn">
+                        <span class="material-icons">more_vert</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Suggested Files Section -->
+        <section class="suggested-files-section">
+            <div class="section-header-with-controls">
+                <div class="section-title-with-arrow">
+                    <span class="material-icons expand-icon">expand_more</span>
+                    <h2>File yang disarankan</h2>
                 </div>
                 <div class="view-controls">
                     <button class="view-btn active" data-view="list">
@@ -317,27 +393,134 @@ function renderMyDrive() {
                     </button>
                 </div>
             </div>
-        </div>
-        
-        <div class="my-drive-table">
-            <div class="table-header">
-                <div class="col-name">
-                    <span>Nama</span>
-                    <span class="material-icons">arrow_drop_up</span>
+            
+            <div class="suggested-files-table">
+                <div class="table-header">
+                    <div class="col-name">Nama</div>
+                    <div class="col-reason">Alasan file disarankan</div>
+                    <div class="col-location">Lokasi</div>
                 </div>
-                <div class="col-owner">Pemilik</div>
-                <div class="col-modified">Tanggal diubah</div>
-                <div class="col-size">Ukuran file</div>
+                
+                <div class="file-list" id="fileList">
+                    <!-- Files will be populated by JavaScript -->
+                </div>
             </div>
-            <div class="folder-list" id="folderList"></div>
+        </section>
+
+        <div class="show-more">
+            <button class="show-more-btn">Tampilkan lainnya</button>
         </div>
     `;
     
-    renderMyDriveFolders();
+    // Show default home content with suggested folders and files
+    const filteredFiles = filterFiles(mockFiles);
+    renderFileList(filteredFiles);
     
-    // Re-attach event listeners for new buttons
-    const newViewBtns = document.querySelectorAll('.view-btn');
-    newViewBtns.forEach(btn => {
+    // Add expand/collapse functionality
+    addExpandCollapseHandlers();
+}
+
+function renderMyDrive() {
+    console.log('renderMyDrive() called');
+    // Pastikan content HTML sudah tepat untuk Drive Saya
+    const mainContent = document.querySelector('.main-content');
+    
+    // Update page title
+    const pageTitle = document.querySelector('.page-title');
+    if (pageTitle) pageTitle.textContent = 'Drive Saya';
+    
+    // Pastikan main content memiliki struktur yang benar
+    if (!document.getElementById('folderList')) {
+        mainContent.innerHTML = `
+            <div class="content-header">
+                <div class="page-title-container">
+                    <h1 class="page-title">Drive Saya</h1>
+                    <button class="dropdown-btn">
+                        <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                </div>
+                <div class="header-actions">
+                    <button class="info-btn">
+                        <span class="material-icons">info_outline</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="filter-controls">
+                    <button class="filter-btn-toolbar">
+                        <span>Jenis</span>
+                        <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                    <button class="filter-btn-toolbar">
+                        <span>Orang</span>
+                        <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                    <button class="filter-btn-toolbar">
+                        <span>Dimodifikasi</span>
+                        <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                    <button class="filter-btn-toolbar">
+                        <span>Sumber</span>
+                        <span class="material-icons">arrow_drop_down</span>
+                    </button>
+                </div>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="list">
+                        <span class="material-icons">view_list</span>
+                    </button>
+                    <button class="view-btn" data-view="grid">
+                        <span class="material-icons">view_module</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="my-drive-table">
+                <div class="table-header">
+                    <div class="col-name">
+                        <span>Nama</span>
+                        <span class="material-icons sort-icon">arrow_drop_up</span>
+                    </div>
+                    <div class="col-owner">Pemilik</div>
+                    <div class="col-modified">Tanggal diubah</div>
+                    <div class="col-size">Ukuran file</div>
+                    <div class="col-actions"></div>
+                </div>
+                <div class="folder-list" id="folderList">
+                    <!-- Files and folders will be populated by JavaScript -->
+                </div>
+            </div>
+        `;
+        
+        // Re-attach event listeners untuk tombol baru
+        attachMyDriveEventListeners();
+    }
+    
+    // Populate data
+    renderMyDriveFolders();
+}
+
+function attachMyDriveEventListeners() {
+    // Dropdown button
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', () => {
+            alert('Dropdown menu untuk Drive Saya');
+        });
+    }
+
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn-toolbar');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filterType = btn.querySelector('span:first-child').textContent;
+            alert(`Filter: ${filterType}`);
+        });
+    });
+
+    // View toggle buttons
+    const viewBtns = document.querySelectorAll('.view-btn');
+    viewBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const view = btn.dataset.view;
             if (view) {
@@ -345,6 +528,14 @@ function renderMyDrive() {
             }
         });
     });
+
+    // Info button
+    const infoBtn = document.querySelector('.info-btn');
+    if (infoBtn) {
+        infoBtn.addEventListener('click', () => {
+            alert('Informasi tentang Google Drive');
+        });
+    }
 }
 
 function renderSharedDrives() {
@@ -383,27 +574,58 @@ function renderSharedDrives() {
 
 function renderMyDriveFolders() {
     const folderList = document.getElementById('folderList');
+    if (!folderList) {
+        console.log('folderList element not found');
+        return;
+    }
+    
     const filteredFolders = mockFolders.filter(folder => 
         folder.name.toLowerCase().includes(searchQuery)
     );
     
-    folderList.innerHTML = filteredFolders.map(folder => `
-        <div class="folder-item">
+    folderList.innerHTML = filteredFolders.map(item => `
+        <div class="folder-item" data-item-name="${item.name}" data-item-type="${item.type}">
             <div class="folder-info">
-                <span class="material-icons folder-icon">folder</span>
-                <span class="folder-name">${folder.name}</span>
+                <span class="material-icons ${item.type === 'folder' ? 'folder-icon' : 'file-icon'}">${item.icon}</span>
+                <span class="folder-name">${item.name}</span>
             </div>
             <div class="folder-owner">
                 <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiNFNzRDM0MiLz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CjxjaXJjbGUgY3g9IjEyIiBjeT0iOSIgcj0iMyIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEyIDE1Yy0zLjMxIDAtNiAxLjM0LTYgM3YzaDEydi0zYzAtMS42Ni0yLjY5LTMtNi0zeiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+Cjwvc3ZnPgo=" alt="Owner" class="owner-img">
-                <span>${folder.owner}</span>
+                <span>${item.owner}</span>
             </div>
-            <div class="folder-modified">${folder.modified}</div>
-            <div class="folder-size">${folder.size}</div>
+            <div class="folder-modified">${item.modified}</div>
+            <div class="folder-size">${item.size}</div>
             <button class="item-menu">
                 <span class="material-icons">more_vert</span>
             </button>
         </div>
     `).join('');
+    
+    // Add click handlers untuk file/folder items
+    const folderItems = document.querySelectorAll('.folder-item');
+    folderItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (!e.target.closest('.item-menu')) {
+                const itemName = item.dataset.itemName;
+                const itemType = item.dataset.itemType;
+                if (itemType === 'folder') {
+                    alert(`Membuka folder: ${itemName}`);
+                } else {
+                    alert(`Membuka file: ${itemName}`);
+                }
+            }
+        });
+        
+        // Menu button click handler
+        const menuBtn = item.querySelector('.item-menu');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const itemName = item.dataset.itemName;
+                alert(`Menu untuk: ${itemName}`);
+            });
+        }
+    });
 }
 
 function renderSharedDrivesList() {
@@ -545,6 +767,24 @@ function showNewMenu() {
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     sidebar.classList.toggle('mobile-hidden');
+}
+
+function addExpandCollapseHandlers() {
+    // Add click handlers for expand/collapse arrows
+    const expandIcons = document.querySelectorAll('.expand-icon');
+    expandIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            icon.style.transform = icon.style.transform === 'rotate(180deg)' ? 'rotate(0deg)' : 'rotate(180deg)';
+            
+            // Find the content section and toggle visibility
+            const section = icon.closest('section');
+            const content = section.querySelector('.suggested-folders-grid, .suggested-files-table');
+            if (content) {
+                content.style.display = content.style.display === 'none' ? '' : 'none';
+            }
+        });
+    });
 }
 
 // CSS for dynamic elements

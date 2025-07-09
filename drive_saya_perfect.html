@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Saya - Google Drive Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        }
+        .file-row:hover {
+            background-color: #f8f9fa;
+        }
+        .dropdown-content {
+            display: none;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center px-6 sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <button class="menu-btn p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDEwTDMwIDI1SDE5TDEwIDI1TDIwIDEwWiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTAgMjVIMjBMMzAgMjVMMjAgMzVMMTAgMjVaIiBmaWxsPSIjRkJCQzA0Ii8+CjxwYXRoIGQ9Ik0yMCAzNUwzMCAyNUwyMCAyNUwyMCAzNVoiIGZpbGw9IiNFQTQzMzUiLz4KPC9zdmc+" alt="Drive" class="w-10 h-10">
+                    <span class="text-xl text-gray-600 font-normal">Drive</span>
+                </div>
+            </div>
+            <div class="flex-1 max-w-2xl mx-auto px-8">
+                <div class="relative flex items-center bg-gray-100 rounded-lg h-12 px-4 transition-all duration-200 focus-within:bg-white focus-within:shadow-lg">
+                    <span class="material-icons text-gray-500 mr-3">search</span>
+                    <input type="text" placeholder="Telusuri di Drive" class="flex-1 border-none bg-transparent text-base outline-none">
+                    <button class="p-2 rounded hover:bg-gray-100 ml-2">
+                        <span class="material-icons">tune</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">help_outline</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">settings</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">apps</span>
+                </button>
+                <div class="profile-menu">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNFNzRDM0MiLz4KPHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjQiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNiAyMGMtNC40MiAwLTggMS43OS04IDR2NGgxNnYtNGMwLTIuMjEtMy41OC00LTgtNHoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo8L3N2Zz4=" alt="Profile" class="w-8 h-8 rounded-full cursor-pointer">
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-white border-r border-gray-200 p-3 overflow-y-auto flex-shrink-0">
+                <div class="relative">
+                    <button id="newBtn" class="w-full bg-white border border-gray-300 rounded-3xl px-6 py-3 flex items-center gap-3 cursor-pointer text-sm font-medium transition-all duration-200 hover:shadow-lg hover:bg-gray-50 shadow-md mb-5">
+                        <span class="material-icons">add</span>
+                        <span>Baru</span>
+                    </button>
+                </div>
+                
+                <nav class="mb-5">
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">home</span>
+                        <span>Beranda</span>
+                    </div>
+                    <div class="nav-item active flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors bg-blue-50 text-blue-600 font-medium">
+                        <span class="material-icons text-blue-600">folder</span>
+                        <span>Drive Saya</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">people</span>
+                        <span>Drive bersama</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">computer</span>
+                        <span>Komputer</span>
+                    </div>
+                </nav>
+
+                <div class="mb-5 border-b border-gray-200 pb-5">
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">people</span>
+                        <span>Dibagikan kepada saya</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">schedule</span>
+                        <span>Terbaru</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">star</span>
+                        <span>Berbintang</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">report</span>
+                        <span>Spam</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">delete</span>
+                        <span>Sampah</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100">
+                        <span class="material-icons text-gray-600">cloud</span>
+                        <span>Penyimpanan</span>
+                    </div>
+                </div>
+
+                <div class="px-5">
+                    <div class="text-xs text-gray-500 mb-2">60,61 GB dari 2 TB telah digunakan</div>
+                    <div class="h-1 bg-gray-200 rounded-sm mb-3 overflow-hidden">
+                        <div class="h-full w-1/4 bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 rounded-sm"></div>
+                    </div>
+                    <button class="w-full border border-gray-300 rounded text-xs text-blue-600 py-2 px-4 hover:bg-gray-50">
+                        Dapatkan penyimpanan ekstra
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6 overflow-y-auto">
+                <!-- Page Title -->
+                <div class="mb-6">
+                    <h1 class="text-2xl font-semibold text-gray-900 mb-4">Drive Saya</h1>
+                    
+                    <!-- Filter Bar -->
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <div class="dropdown relative">
+                            <button class="border border-gray-300 px-3 py-1 text-sm rounded bg-white hover:bg-gray-50 flex items-center gap-1">
+                                <span>Jenis</span>
+                                <span class="material-icons text-sm">arrow_drop_down</span>
+                            </button>
+                            <div class="dropdown-content absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Folder</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dokumen</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Video</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown relative">
+                            <button class="border border-gray-300 px-3 py-1 text-sm rounded bg-white hover:bg-gray-50 flex items-center gap-1">
+                                <span>Orang</span>
+                                <span class="material-icons text-sm">arrow_drop_down</span>
+                            </button>
+                            <div class="dropdown-content absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Siapa saja</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Saya</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dibagikan</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown relative">
+                            <button class="border border-gray-300 px-3 py-1 text-sm rounded bg-white hover:bg-gray-50 flex items-center gap-1">
+                                <span>Dimodifikasi</span>
+                                <span class="material-icons text-sm">arrow_drop_down</span>
+                            </button>
+                            <div class="dropdown-content absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kapan saja</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Hari ini</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Minggu lalu</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bulan lalu</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown relative">
+                            <button class="border border-gray-300 px-3 py-1 text-sm rounded bg-white hover:bg-gray-50 flex items-center gap-1">
+                                <span>Sumber</span>
+                                <span class="material-icons text-sm">arrow_drop_down</span>
+                            </button>
+                            <div class="dropdown-content absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[120px]">
+                                <div class="py-1">
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Drive Saya</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Komputer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Table -->
+                <div class="overflow-x-auto">
+                    <div class="bg-white rounded-lg border border-gray-200">
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-4 w-full py-3 px-4 bg-gray-50 border-b border-gray-200 text-xs font-medium text-gray-600 uppercase tracking-wide">
+                            <div class="flex items-center gap-1 w-1/2">
+                                <span>Nama</span>
+                                <span class="material-icons text-sm text-gray-500">arrow_drop_up</span>
+                            </div>
+                            <div class="w-1/6 text-center">Pemilik</div>
+                            <div class="w-1/6 text-center">Tanggal diubah</div>
+                            <div class="w-1/6 text-center">Ukuran file</div>
+                        </div>
+                        
+                        <!-- File List -->
+                        <div id="fileList">
+                            <!-- Files will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Data dummy berdasarkan screenshot
+        const driveFiles = [
+            { 
+                name: "All File", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "—", 
+                size: "—" 
+            },
+            { 
+                name: "App", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "2 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "BACKUP JUNI 2025", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "29 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "BackupCache", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "29 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "BackupDestination", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "30 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "Colab Notebooks", 
+                type: "folder", 
+                icon: "📂", 
+                owner: "saya", 
+                modified: "26 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "Data baru", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "16 Mei 2024", 
+                size: "—" 
+            },
+            { 
+                name: "Data PT", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "16 Mei 2024", 
+                size: "—" 
+            },
+            { 
+                name: "Folder tanpa nama", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "11 Jan 2024", 
+                size: "—" 
+            },
+            { 
+                name: "KEY SSH", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "2 Mei", 
+                size: "—" 
+            },
+            { 
+                name: "LOG_TRANSFER", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "29 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "Paspor", 
+                type: "folder", 
+                icon: "📁", 
+                owner: "saya", 
+                modified: "5 Jun", 
+                size: "—" 
+            },
+            { 
+                name: "Proof of transaction", 
+                type: "document", 
+                icon: "📄", 
+                owner: "saya", 
+                modified: "18 Okt 2024", 
+                size: "236.19 MB" 
+            },
+            { 
+                name: "tes", 
+                type: "document", 
+                icon: "📄", 
+                owner: "saya", 
+                modified: "17 Nov 2024", 
+                size: "1.2 MB" 
+            },
+            { 
+                name: "Training Video Complete.mp4", 
+                type: "video", 
+                icon: "🎞️", 
+                owner: "saya", 
+                modified: "15 Des 2024", 
+                size: "892.4 MB" 
+            },
+            { 
+                name: "Machine Learning Model.ipynb", 
+                type: "notebook", 
+                icon: "📓", 
+                owner: "saya", 
+                modified: "12 Des 2024", 
+                size: "45.7 MB" 
+            }
+        ];
+
+        // DOM elements
+        const fileList = document.getElementById('fileList');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFileList();
+            initializeDropdowns();
+        });
+
+        function renderFileList() {
+            if (!fileList) return;
+            
+            fileList.innerHTML = driveFiles.map(file => `
+                <div class="file-row grid grid-cols-4 w-full py-2 px-4 border-b border-gray-200 cursor-pointer items-center h-[44px] gap-x-4" onclick="openFile('${file.name}', '${file.type}')">
+                    <!-- Kolom Nama (w-1/2) -->
+                    <div class="flex items-center gap-2 truncate w-1/2">
+                        <span class="text-lg flex-shrink-0">${file.icon}</span>
+                        <span class="text-sm text-gray-700 truncate max-w-full">${file.name}</span>
+                    </div>
+                    
+                    <!-- Kolom Pemilik (w-1/6) -->
+                    <div class="flex items-center justify-center gap-2 w-1/6">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiNFNzRDM0MiLz4KPC9zdmc+" alt="Owner" class="w-5 h-5 rounded-full flex-shrink-0">
+                        <span class="text-sm text-gray-700">${file.owner}</span>
+                    </div>
+                    
+                    <!-- Kolom Tanggal (w-1/6) -->
+                    <div class="text-sm text-gray-700 text-center w-1/6">
+                        ${file.modified}
+                    </div>
+                    
+                    <!-- Kolom Ukuran (w-1/6) -->
+                    <div class="flex items-center justify-between w-1/6 min-w-[100px]">
+                        <span class="text-sm text-gray-700 flex-grow text-center">${file.size}</span>
+                        <button class="p-1 rounded hover:bg-gray-200 transition-colors ml-2 flex-shrink-0" onclick="event.stopPropagation(); showFileMenu('${file.name}')">
+                            <span class="material-icons text-gray-500 text-lg">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initializeDropdowns() {
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(event) {
+                const dropdowns = document.querySelectorAll('.dropdown');
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(event.target)) {
+                        const content = dropdown.querySelector('.dropdown-content');
+                        if (content) {
+                            content.style.display = 'none';
+                        }
+                    }
+                });
+            });
+
+            // Toggle dropdown on button click
+            const dropdownButtons = document.querySelectorAll('.dropdown > button');
+            dropdownButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    const dropdown = this.parentElement;
+                    const content = dropdown.querySelector('.dropdown-content');
+                    
+                    // Close other dropdowns
+                    document.querySelectorAll('.dropdown-content').forEach(dc => {
+                        if (dc !== content) {
+                            dc.style.display = 'none';
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                    } else {
+                        content.style.display = 'block';
+                    }
+                });
+            });
+        }
+
+        function openFile(name, type) {
+            if (type === 'folder') {
+                alert(`📁 Membuka folder: ${name}`);
+            } else if (type === 'video') {
+                alert(`🎞️ Memutar video: ${name}`);
+            } else if (type === 'notebook') {
+                alert(`📓 Membuka notebook: ${name}`);
+            } else {
+                alert(`📄 Membuka dokumen: ${name}`);
+            }
+        }
+
+        function showFileMenu(name) {
+            alert(`⚙️ Menu untuk: ${name}\n\nOpsi:\n- Download\n- Bagikan\n- Pindahkan\n- Ganti nama\n- Hapus`);
+        }
+
+        // New button functionality
+        document.getElementById('newBtn').addEventListener('click', function() {
+            alert('Tombol Baru diklik! Fitur upload akan ditambahkan.');
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            const sidebar = document.querySelector('aside');
+            sidebar.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

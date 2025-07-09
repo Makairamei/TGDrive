@@ -1,223 +1,430 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TG Drive</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG Drive - Clean Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/home.css" />
     <link rel="stylesheet" href="static/css/context-menu.css" />
-
-    <!-- Fonts Start -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet" />
-    <!-- Fonts End -->
+    <style>
+        body { 
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        }
+        
+        /* New Upload Dropdown Styles */
+        .new-upload {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: -1;
+            opacity: 0;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            margin: 0 12px;
+        }
+        
+        .upload-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            color: #374151;
+        }
+        
+        .upload-option:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .upload-option svg {
+            color: #6b7280;
+        }
+        
+        .upload-option span {
+            font-size: 14px;
+            font-weight: 400;
+        }
+        
+        .new-upload hr {
+            margin: 8px 0;
+            border: none;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        /* Sidebar navigation styles */
+        .selected-item {
+            background-color: #dbeafe;
+            color: #2563eb;
+            font-weight: 500;
+            border-radius: 0 9999px 9999px 0;
+        }
+        
+        .unselected-item {
+            color: #374151;
+            border-radius: 0 9999px 9999px 0;
+        }
+        
+        .unselected-item:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="container">
-        <!-- Sidebar Start -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png" />
-                <span>TG Drive</span>
-            </div>
+<body class="bg-gray-50">
 
-            <button id="new-button" class="new-button">
-                <img src="static/assets/plus-icon.svg" />New
+<div class="w-full bg-white min-h-screen">
+    
+    <!-- Header -->
+    <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-6">
+        <!-- Left Section -->
+        <div class="flex items-center gap-2 lg:gap-4 flex-shrink-0">
+            <button class="p-2 rounded-full hover:bg-gray-100">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
             </button>
-
-            <div id="new-upload" class="new-upload">
-                <input id="new-upload-focus" type="text"
-                    style="height: 0px; width: 0px; border: none; position: absolute" readonly />
-                <div id="new-folder-btn">
-                    <img src="static/assets/folder-icon.svg" />
-                    New Folder
-                </div>
-                <hr />
-                <div id="file-upload-btn">
-                    <img src="static/assets/upload-icon.svg" />
-                    File Upload
-                </div>
-                <input type="file" id="fileInput" style="height: 0px; width: 0px; border: none; position: absolute" />
-                <hr />
-                <div id="url-upload-btn">
-                    <img src="static/assets/link-icon.svg" />
-                    URL Upload
-                </div>
-            </div>
-
-            <div class="sidebar-menu">
-                <a class="selected-item" href="/?path=/"><img src="static/assets/home-icon.svg" />Home</a>
-                <a class="unselected-item" href="/?path=/trash"><img src="static/assets/trash-icon.svg" />Trash</a>
+            <div class="flex items-center gap-2 lg:gap-3">
+                <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png" alt="Drive" class="w-8 h-8 lg:w-10 lg:h-10">
+                <span class="text-lg lg:text-xl text-gray-600 hidden sm:block">TG Drive</span>
             </div>
         </div>
-        <!-- Sidebar End -->
-
-        <div id="bg-blur" class="bg-blur"></div>
-
-        <!-- Create New Folder Start -->
-        <div id="create-new-folder" class="create-new-folder">
-            <span>New Folder</span>
-            <input type="text" id="new-folder-name" placeholder="Enter Folder Name" autocomplete="off" />
-            <div>
-                <button id="new-folder-cancel">Cancel</button>
-                <button id="new-folder-create">Create</button>
+        
+        <!-- Center Section - Search Bar -->
+        <div class="flex-1 max-w-2xl mx-4 lg:mx-8">
+            <div class="relative bg-gray-100 rounded-lg px-3 lg:px-4 py-2 lg:py-3 flex items-center">
+                <svg class="w-4 h-4 lg:w-5 lg:h-5 text-gray-500 mr-2 lg:mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <form id="search-form" class="flex-1">
+                    <input id="file-search" type="text" placeholder="Telusuri di Drive" class="flex-1 bg-transparent outline-none text-sm lg:text-base" autocomplete="off">
+                </form>
             </div>
         </div>
-        <!-- Create New Folder End -->
-
-        <!-- File / Folder Rename Start -->
-        <div id="rename-file-folder" class="create-new-folder">
-            <span>Edit File/Folder Name</span>
-            <input type="text" id="rename-name" placeholder="Enter File/Folder Name" autocomplete="off" />
-            <div>
-                <button id="rename-cancel">Cancel</button>
-                <button id="rename-create">Rename</button>
+        
+        <!-- Right Section -->
+        <div class="flex items-center gap-1 lg:gap-2 flex-shrink-0">
+            <button class="p-1.5 lg:p-2 rounded-full hover:bg-gray-100">
+                <svg class="w-5 h-5 lg:w-6 lg:h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </button>
+            <div class="w-7 h-7 lg:w-8 lg:h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-xs lg:text-sm font-medium">
+                A
             </div>
         </div>
-        <!-- File / Folder Rename End -->
+    </header>
 
-        <!-- Remote Upload Start -->
-        <div id="new-url-upload" class="create-new-folder">
-            <span>Url Upload</span>
-            <input type="text" id="remote-url" placeholder="Enter Direct Download Link Of File" autocomplete="off" />
-            <div id="single-threaded-div">
-                <input type="checkbox" name="single-threaded-toggle" id="single-threaded-toggle">
-                <label for="single-threaded-toggle">Single Threaded</label>
-                <a href="#"><img src="static/assets/info-icon-small.svg" alt="Info"></a>
-            </div>
-            <div>
-                <button id="remote-cancel">Cancel</button>
-                <button id="remote-start">Upload</button>
-            </div>
-        </div>
-        <!-- Remote Upload End -->
-
-        <!-- Get Password Start -->
-        <div id="get-password" class="create-new-folder">
-            <span>Admin Login</span>
-            <input type="text" id="auth-pass" placeholder="Enter Password" autocomplete="off" />
-            <div>
-                <button id="pass-login">Login</button>
-            </div>
-        </div>
-        <!-- Get Password End -->
-
-        <!-- Move Files Dialog Start -->
-        <div id="move-files-dialog" class="create-new-folder">
-            <span>Move Selected Files</span>
-            <div class="selected-files-info" id="selected-files-info">
-                <span id="selected-count">0 files selected</span>
-            </div>
-            <div class="folder-picker">
-                <label for="destination-folder">Choose destination folder:</label>
-                <select id="destination-folder" class="folder-select">
-                    <option value="">Loading folders...</option>
-                </select>
-            </div>
-            <div>
-                <button id="move-cancel">Cancel</button>
-                <button id="move-confirm">Move Files</button>
-            </div>
-        </div>
-        <!-- Move Files Dialog End -->
-
-        <!-- File Uploader Start -->
-        <div id="file-uploader" class="file-uploader">
-            <span class="upload-head">🚀 Uploading File...</span>
-            <span id="upload-filename" class="upload-info">Filename : </span>
-            <span id="upload-filesize" class="upload-info">Filesize :</span>
-            <span id="upload-status" class="upload-info">Status : </span>
-            <span id="upload-percent" class="upload-info">Progress : </span>
-            <div class="progress">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-            <div class="btn-div">
-                <button id="cancel-file-upload">Cancel Upload</button>
-            </div>
-        </div>
-        <!-- File Uploader End -->
-
-        <!-- Main Content Start -->
-        <div class="main-content">
-            <div class="header">
-                <div class="search-bar">
-                    <img src="static/assets/search-icon.svg" />
-                    <form id="search-form">
-                        <input id="file-search" type="text" placeholder="Search in Drive" autocomplete="off" />
-                    </form>
-                </div>
-                
-                <div class="header-actions">
-                    <div class="view-toggle">
-                        <button class="view-toggle-btn active" id="list-view-btn" title="List view">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3,5H21V7H3V5M3,13V11H21V13H3M3,19V17H21V19H3Z"/>
-                            </svg>
-                            List
-                        </button>
-                        <button class="view-toggle-btn" id="grid-view-btn" title="Grid view">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3,11H11V3H3M5,5H9V9H5M13,21H21V13H13M15,15H19V19H15M3,21H11V13H3M5,15H9V19H5M13,3V11H21V3M15,5H19V9H15"/>
-                            </svg>
-                            Grid
-                        </button>
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-56 lg:w-64 xl:w-72 bg-white border-r border-gray-200 p-3 lg:p-4 flex-shrink-0">
+            <div class="relative mb-4 lg:mb-6">
+                <button id="new-button" class="w-full bg-white border border-gray-300 rounded-full px-4 lg:px-6 py-2 lg:py-3 flex items-center gap-2 lg:gap-3 shadow-md hover:shadow-lg transition-shadow">
+                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    <span class="font-medium text-sm lg:text-base">Baru</span>
+                </button>
+            
+                <!-- Upload Dropdown Menu -->
+                <div id="new-upload" class="new-upload">
+                    <input id="new-upload-focus" type="text" style="height: 0px; width: 0px; border: none; position: absolute" readonly />
+                    <div id="new-folder-btn" class="upload-option">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                        </svg>
+                        <span>New Folder</span>
                     </div>
-                    
-                    <button id="select-mode-btn" class="action-btn" title="Select multiple files">
-                        <img src="static/assets/check-icon.svg" alt="Select" />
-                        Select
-                    </button>
-                    <button id="move-files-btn" class="action-btn disabled" title="Move selected files" disabled>
-                        <img src="static/assets/move-icon.svg" alt="Move" />
-                        Move (<span id="selected-count-header">0</span>)
-                    </button>
-                    <button id="cancel-select-btn" class="action-btn hidden" title="Cancel selection">
-                        <img src="static/assets/cancel-icon.svg" alt="Cancel" />
-                        Cancel
-                    </button>
+                    <hr />
+                    <div id="file-upload-btn" class="upload-option">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        </svg>
+                        <span>File Upload</span>
+                    </div>
+                    <input type="file" id="fileInput" style="height: 0px; width: 0px; border: none; position: absolute" />
+                    <hr />
+                    <div id="url-upload-btn" class="upload-option">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z"/>
+                        </svg>
+                        <span>URL Upload</span>
+                    </div>
                 </div>
             </div>
             
-            <!-- Breadcrumb Navigation -->
-            <div class="breadcrumb-nav" id="breadcrumb-nav">
-                <a href="/?path=/" class="breadcrumb-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
+            <nav class="space-y-1 sidebar-menu">
+                <a href="/?path=/home" class="flex items-center gap-3 px-4 py-2 unselected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                     </svg>
-                    My Drive
+                    <span>Beranda</span>
                 </a>
+                <a href="/?path=/" class="flex items-center gap-3 px-4 py-2 selected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/>
+                    </svg>
+                    <span>Drive Saya</span>
+                </a>
+                <a href="/?path=/" class="flex items-center gap-3 px-4 py-2 unselected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.99 4H8l-1-1H4v2h2l3.8 3.2L8.5 19H7v2h9.5c1.1 0 2-.9 2-2z"/>
+                    </svg>
+                    <span>Drive bersama</span>
+                </a>
+            </nav>
+            
+            <hr class="my-4 border-gray-200">
+            
+            <nav class="space-y-1">
+                <a href="/?path=/" class="flex items-center gap-3 px-4 py-2 unselected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <span>Berbintang</span>
+                </a>
+                <a href="/?path=/trash" class="flex items-center gap-3 px-4 py-2 unselected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3z"/>
+                    </svg>
+                    <span>Sampah</span>
+                </a>
+                <a href="/?path=/" class="flex items-center gap-3 px-4 py-2 unselected-item">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                    </svg>
+                    <span>Penyimpanan</span>
+                </a>
+            </nav>
+            
+            <div class="mt-8 px-4">
+                <div class="text-xs text-gray-500 mb-2">46,33 GB dari 2 TB digunakan</div>
+                <div class="h-2 bg-gray-200 rounded-full mb-3">
+                    <div class="h-full w-1/4 bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 rounded-full"></div>
+                </div>
+                <button class="w-full text-xs text-blue-600 border border-gray-300 rounded py-2 px-3 hover:bg-gray-50">
+                    Dapatkan penyimpanan ekstra
+                </button>
             </div>
+        </aside>
 
-            <div class="directory" id="directory-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="checkbox-column hidden">
-                                <input type="checkbox" id="select-all-checkbox" title="Select all files">
-                            </th>
-                            <th>Name</th>
-                            <th>File Size</th>
-                            <th>More</th>
-                        </tr>
-                    </thead>
-                    <tbody id="directory-data"></tbody>
-                </table>
+        <!-- Main Content -->
+        <main class="flex-1 bg-white">
+            <div class="p-6">
+                
+                <!-- Page Header -->
+                <div class="mb-6">
+                    <!-- Title Section -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-2xl font-normal text-gray-900">Drive Saya</h1>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-2 border border-gray-300 rounded bg-blue-50 text-blue-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                                </svg>
+                            </button>
+                            <button class="p-2 border border-gray-300 rounded hover:bg-gray-50">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Bar -->
+                    <div class="flex flex-wrap gap-3">
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Jenis</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Orang</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Dimodifikasi</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Sumber</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Files Table -->
+                <div class="bg-white">
+                    <!-- Table Header -->
+                    <div class="border-b border-gray-200 py-3">
+                        <div class="grid px-4 items-center text-xs font-medium text-gray-600 uppercase tracking-wide" style="grid-template-columns: 1fr 200px 150px 120px;">
+                            <div class="flex items-center gap-1">
+                                <span>Nama</span>
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="flex justify-center">Pemilik</div>
+                            <div class="flex justify-center">Tanggal diubah</div>
+                            <div class="flex justify-center">Ukuran file</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Files Container for JavaScript -->
+                    <div id="directory-container">
+                        <div id="directory-data">
+                            <!-- Default placeholder files - will be replaced by JavaScript -->
+                            <div class="grid px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer" style="grid-template-columns: 1fr 200px 150px 120px;">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="text-lg">📁</span>
+                                    <span class="text-sm text-gray-900 truncate">tes</span>
+                                </div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-sm">🧑</span>
+                                    <span class="text-sm text-gray-700">saya</span>
+                                </div>
+                                <div class="flex justify-center text-sm text-gray-700">8 Des</div>
+                                <div class="flex justify-center text-sm text-gray-700">—</div>
+                            </div>
+                            
+                            <div class="grid px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer" style="grid-template-columns: 1fr 200px 150px 120px;">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="text-lg">📁</span>
+                                    <span class="text-sm text-gray-900 truncate">Anime</span>
+                                </div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-sm">🧑</span>
+                                    <span class="text-sm text-gray-700">saya</span>
+                                </div>
+                                <div class="flex justify-center text-sm text-gray-700">7 Des</div>
+                                <div class="flex justify-center text-sm text-gray-700">—</div>
+                            </div>
+                            
+                            <div class="grid px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer" style="grid-template-columns: 1fr 200px 150px 120px;">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="text-lg">🎞️</span>
+                                    <span class="text-sm text-gray-900 truncate">[ANICHIN.REST][Super_Cube][EP05].[1080p].mp4</span>
+                                </div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-sm">🧑</span>
+                                    <span class="text-sm text-gray-700">saya</span>
+                                </div>
+                                <div class="flex justify-center text-sm text-gray-700">6 Des</div>
+                                <div class="flex justify-center text-sm text-gray-700">109 KB</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-        </div>
+        </main>
     </div>
-    <script src="static/js/extra.js"></script>
-    <script src="static/js/apiHandler.js"></script>
-    <script src="static/js/sidebar.js"></script>
-    <script src="static/js/fileClickHandler.js"></script>
-    <script src="static/js/main.js"></script>
-    <script src="static/js/moveFiles.js"></script>
-    <script src="static/js/context-menu.js"></script>
-    <script src="static/js/google-drive-enhancements.js"></script>
+</div>
+
+<!-- Hidden elements for compatibility with existing JavaScript -->
+<div id="bg-blur" class="bg-blur"></div>
+
+<!-- Modal dialogs -->
+<div id="create-new-folder" class="create-new-folder">
+    <span>New Folder</span>
+    <input type="text" id="new-folder-name" placeholder="Enter Folder Name" autocomplete="off" />
+    <div>
+        <button id="new-folder-cancel">Cancel</button>
+        <button id="new-folder-create">Create</button>
+    </div>
+</div>
+
+<div id="rename-file-folder" class="create-new-folder">
+    <span>Edit File/Folder Name</span>
+    <input type="text" id="rename-name" placeholder="Enter File/Folder Name" autocomplete="off" />
+    <div>
+        <button id="rename-cancel">Cancel</button>
+        <button id="rename-create">Rename</button>
+    </div>
+</div>
+
+<div id="new-url-upload" class="create-new-folder">
+    <span>Url Upload</span>
+    <input type="text" id="remote-url" placeholder="Enter Direct Download Link Of File" autocomplete="off" />
+    <div id="single-threaded-div">
+        <input type="checkbox" name="single-threaded-toggle" id="single-threaded-toggle">
+        <label for="single-threaded-toggle">Single Threaded</label>
+        <a href="#"><img src="static/assets/info-icon-small.svg" alt="Info"></a>
+    </div>
+    <div>
+        <button id="remote-cancel">Cancel</button>
+        <button id="remote-start">Upload</button>
+    </div>
+</div>
+
+<div id="get-password" class="create-new-folder">
+    <span>Admin Login</span>
+    <input type="text" id="auth-pass" placeholder="Enter Password" autocomplete="off" />
+    <div>
+        <button id="pass-login">Login</button>
+    </div>
+</div>
+
+<div id="move-files-dialog" class="create-new-folder">
+    <span>Move Selected Files</span>
+    <div class="selected-files-info" id="selected-files-info">
+        <span id="selected-count">0 files selected</span>
+    </div>
+    <div class="folder-picker">
+        <label for="destination-folder">Choose destination folder:</label>
+        <select id="destination-folder" class="folder-select">
+            <option value="">Loading folders...</option>
+        </select>
+    </div>
+    <div>
+        <button id="move-cancel">Cancel</button>
+        <button id="move-confirm">Move Files</button>
+    </div>
+</div>
+
+<div id="file-uploader" class="file-uploader">
+    <span class="upload-head">🚀 Uploading File...</span>
+    <span id="upload-filename" class="upload-info">Filename : </span>
+    <span id="upload-filesize" class="upload-info">Filesize :</span>
+    <span id="upload-status" class="upload-info">Status : </span>
+    <span id="upload-percent" class="upload-info">Progress : </span>
+    <div class="progress">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="btn-div">
+        <button id="cancel-file-upload">Cancel Upload</button>
+    </div>
+</div>
+
+<script src="static/js/extra.js"></script>
+<script src="static/js/apiHandler.js"></script>
+<script src="static/js/sidebar.js"></script>
+<script src="static/js/fileClickHandler.js"></script>
+<script src="static/js/main.js"></script>
+<script src="static/js/moveFiles.js"></script>
+<script src="static/js/context-menu.js"></script>
+<script src="static/js/google-drive-enhancements.js"></script>
 </body>
 
 </html>

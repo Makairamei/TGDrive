@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drive Saya - Clean Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<div class="max-w-7xl mx-auto bg-white min-h-screen">
+    
+    <!-- Header -->
+    <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full hover:bg-gray-100">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+            <div class="flex items-center gap-3">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDEwTDMwIDI1SDE5TDEwIDI1TDIwIDEwWiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTAgMjVIMjBMMzAgMjVMMjAgMzVMMTAgMjVaIiBmaWxsPSIjRkJCQzA0Ii8+CjxwYXRoIGQ9Ik0yMCAzNUwzMCAyNUwyMCAyNUwyMCAzNVoiIGZpbGw9IiNFQTQzMzUiLz4KPC9zdmc+" alt="Drive" class="w-10 h-10">
+                <span class="text-xl text-gray-600">Drive</span>
+            </div>
+        </div>
+        
+        <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative bg-gray-100 rounded-lg px-4 py-3 flex items-center">
+                <svg class="w-5 h-5 text-gray-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <input type="text" placeholder="Telusuri di Drive" class="flex-1 bg-transparent outline-none text-base">
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-2">
+            <button class="p-2 rounded-full hover:bg-gray-100">
+                <svg class="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </button>
+            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                A
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r border-gray-200 p-4">
+            <button class="w-full bg-white border border-gray-300 rounded-full px-6 py-3 flex items-center gap-3 shadow-md hover:shadow-lg transition-shadow mb-6">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                <span class="font-medium">Baru</span>
+            </button>
+            
+            <nav class="space-y-1">
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 bg-blue-50 text-blue-600 font-medium rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z"/>
+                    </svg>
+                    <span>Drive Saya</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.99 4H8l-1-1H4v2h2l3.8 3.2L8.5 19H7v2h9.5c1.1 0 2-.9 2-2z"/>
+                    </svg>
+                    <span>Drive bersama</span>
+                </a>
+            </nav>
+            
+            <hr class="my-4 border-gray-200">
+            
+            <nav class="space-y-1">
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <span>Berbintang</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 4V1h2v3h3v2H5v3H3V6H0V4h3zm3 6V7h3V4h7l1.83 2H21c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V10h3z"/>
+                    </svg>
+                    <span>Sampah</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-r-full">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                    </svg>
+                    <span>Penyimpanan</span>
+                </a>
+            </nav>
+            
+            <div class="mt-8 px-4">
+                <div class="text-xs text-gray-500 mb-2">15 GB dari 100 GB digunakan</div>
+                <div class="h-2 bg-gray-200 rounded-full mb-3">
+                    <div class="h-full w-1/6 bg-blue-500 rounded-full"></div>
+                </div>
+                <button class="w-full text-xs text-blue-600 border border-gray-300 rounded py-2 px-3 hover:bg-gray-50">
+                    Beli penyimpanan
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-white">
+            <div class="p-6">
+                
+                <!-- Page Header -->
+                <div class="mb-6">
+                    <!-- Title Section -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-2xl font-normal text-gray-900">Drive Saya</h1>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-2 border border-gray-300 rounded bg-blue-50 text-blue-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                                </svg>
+                            </button>
+                            <button class="p-2 border border-gray-300 rounded hover:bg-gray-50">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Filter Bar -->
+                    <div class="flex flex-wrap gap-3">
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Jenis</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Orang</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Dimodifikasi</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                        <button class="flex items-center gap-1 border border-gray-300 rounded px-3 py-1.5 text-sm bg-white hover:bg-gray-50">
+                            <span>Sumber</span>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Files Table -->
+                <div class="bg-white">
+                    <!-- Table Header -->
+                    <div class="border-b border-gray-200 py-3">
+                        <div class="grid grid-cols-4 gap-x-4 px-4 items-center text-xs font-medium text-gray-600 uppercase tracking-wide">
+                            <div class="flex items-center gap-1">
+                                <span>Nama</span>
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="text-center">Pemilik</div>
+                            <div class="text-center">Tanggal diubah</div>
+                            <div class="text-center">Ukuran file</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Files List -->
+                    <div>
+                        <!-- File Row 1 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📁</span>
+                                <span class="text-sm text-gray-900 truncate">tes</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">19 jam</div>
+                            <div class="text-center text-sm text-gray-700">—</div>
+                        </div>
+                        
+                        <!-- File Row 2 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📁</span>
+                                <span class="text-sm text-gray-900 truncate">Anime</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">1 hari</div>
+                            <div class="text-center text-sm text-gray-700">—</div>
+                        </div>
+                        
+                        <!-- File Row 3 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📁</span>
+                                <span class="text-sm text-gray-900 truncate">Donghua</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">1 hari</div>
+                            <div class="text-center text-sm text-gray-700">—</div>
+                        </div>
+                        
+                        <!-- File Row 4 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📄</span>
+                                <span class="text-sm text-gray-900 truncate">backup_script_final_vfix (1).ipynb</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">7 jam</div>
+                            <div class="text-center text-sm text-gray-700">—</div>
+                        </div>
+                        
+                        <!-- File Row 5 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">🎞️</span>
+                                <span class="text-sm text-gray-900 truncate">[ANICHIN.REST][Super_Cube][EP05].[1080p].mp4</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">17 jam</div>
+                            <div class="text-center text-sm text-gray-700">109 KB</div>
+                        </div>
+                        
+                        <!-- File Row 6 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">🎞️</span>
+                                <span class="text-sm text-gray-900 truncate">OP-1124-FULLHD-SAMEHADAKU.CARE.mp4</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">19 jam</div>
+                            <div class="text-center text-sm text-gray-700">242.79 MB</div>
+                        </div>
+                        
+                        <!-- File Row 7 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📊</span>
+                                <span class="text-sm text-gray-900 truncate">Data_Analysis_Report.xlsx</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">2 hari</div>
+                            <div class="text-center text-sm text-gray-700">1.2 MB</div>
+                        </div>
+                        
+                        <!-- File Row 8 -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-2 items-center hover:bg-gray-50 border-b border-gray-200 cursor-pointer">
+                            <div class="flex items-center gap-2 truncate">
+                                <span class="text-lg">📕</span>
+                                <span class="text-sm text-gray-900 truncate">Tutorial_FastAPI.pdf</span>
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-sm">🧑</span>
+                                <span class="text-sm text-gray-700">saya</span>
+                            </div>
+                            <div class="text-center text-sm text-gray-700">5 hari</div>
+                            <div class="text-center text-sm text-gray-700">3.4 MB</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

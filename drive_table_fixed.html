@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TG Drive - Google Drive Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+        }
+        .file-table-row {
+            transition: background-color 0.15s ease;
+        }
+        .file-table-row:hover {
+            background-color: #f8f9fa;
+        }
+        .file-icon {
+            min-width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .truncate-filename {
+            max-width: 250px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div class="h-screen flex flex-col">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center px-6 sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <button class="menu-btn p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIwIDEwTDMwIDI1SDE5TDEwIDI1TDIwIDEwWiIgZmlsbD0iIzM0QTg1MyIvPgo8cGF0aCBkPSJNMTAgMjVIMjBMMzAgMjVMMjAgMzVMMTAgMjVaIiBmaWxsPSIjRkJCQzA0Ii8+CjxwYXRoIGQ9Ik0yMCAzNUwzMCAyNUwyMCAyNUwyMCAzNVoiIGZpbGw9IiNFQTQzMzUiLz4KPC9zdmc+" alt="Drive" class="w-10 h-10">
+                    <span class="text-xl text-gray-600 font-normal">TG Drive</span>
+                </div>
+            </div>
+            <div class="flex-1 max-w-2xl mx-auto px-8">
+                <div class="relative flex items-center bg-gray-100 rounded-lg h-12 px-4 transition-all duration-200 focus-within:bg-white focus-within:shadow-lg">
+                    <span class="material-icons text-gray-500 mr-3">search</span>
+                    <input type="text" placeholder="Telusuri di Drive" class="flex-1 border-none bg-transparent text-base outline-none">
+                    <button class="p-2 rounded hover:bg-gray-100 ml-2">
+                        <span class="material-icons">tune</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">help_outline</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">settings</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <span class="material-icons text-gray-500">apps</span>
+                </button>
+                <div class="profile-menu">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNFNzRDM0MiLz4KPHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiI+CjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjQiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNiAyMGMtNC40MiAwLTggMS43OS04IDR2NGgxNnYtNGMwLTIuMjEtMy41OC00LTgtNHoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo8L3N2Zz4=" alt="Profile" class="w-8 h-8 rounded-full cursor-pointer">
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-white border-r border-gray-200 p-3 overflow-y-auto flex-shrink-0">
+                <div class="relative">
+                    <button id="newBtn" class="w-full bg-white border border-gray-300 rounded-3xl px-6 py-3 flex items-center gap-3 cursor-pointer text-sm font-medium transition-all duration-200 hover:shadow-lg hover:bg-gray-50 shadow-md mb-5">
+                        <span class="material-icons">add</span>
+                        <span>+ New</span>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="newDropdown" class="hidden absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                        <div class="py-2">
+                            <button id="newFolder" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-colors">
+                                <span class="material-icons text-gray-600">folder</span>
+                                <span class="text-sm">New Folder</span>
+                            </button>
+                            <button id="fileUpload" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-colors">
+                                <span class="material-icons text-gray-600">upload_file</span>
+                                <span class="text-sm">File Upload</span>
+                            </button>
+                            <button id="urlUpload" class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition-colors">
+                                <span class="material-icons text-gray-600">link</span>
+                                <span class="text-sm">URL Upload</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav class="mb-5">
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Beranda">
+                        <span class="material-icons text-gray-600">home</span>
+                        <span>Beranda</span>
+                    </div>
+                    <div class="nav-item active flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors bg-blue-50 text-blue-600 font-medium" data-section="Drive Saya">
+                        <span class="material-icons text-blue-600">folder</span>
+                        <span>Drive Saya</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Drive bersama">
+                        <span class="material-icons text-gray-600">people</span>
+                        <span>Drive bersama</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Komputer">
+                        <span class="material-icons text-gray-600">computer</span>
+                        <span>Komputer</span>
+                    </div>
+                </nav>
+
+                <div class="mb-5 border-b border-gray-200 pb-5">
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Dibagikan kepada saya">
+                        <span class="material-icons text-gray-600">people</span>
+                        <span>Dibagikan kepada saya</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Terbaru">
+                        <span class="material-icons text-gray-600">schedule</span>
+                        <span>Terbaru</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Berbintang">
+                        <span class="material-icons text-gray-600">star</span>
+                        <span>Berbintang</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Spam">
+                        <span class="material-icons text-gray-600">report</span>
+                        <span>Spam</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Sampah">
+                        <span class="material-icons text-gray-600">delete</span>
+                        <span>Sampah</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-2 cursor-pointer rounded-r-3xl mr-2 transition-colors hover:bg-gray-100" data-section="Penyimpanan">
+                        <span class="material-icons text-gray-600">cloud</span>
+                        <span>Penyimpanan</span>
+                    </div>
+                </div>
+
+                <div class="px-5">
+                    <div class="text-xs text-gray-500 mb-2">60,61 GB dari 2 TB telah digunakan</div>
+                    <div class="h-1 bg-gray-200 rounded-sm mb-3 overflow-hidden">
+                        <div class="h-full w-1/4 bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 rounded-sm"></div>
+                    </div>
+                    <button class="w-full border border-gray-300 rounded text-xs text-blue-600 py-2 px-4 hover:bg-gray-50">
+                        Dapatkan penyimpanan ekstra
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-6 overflow-y-auto" id="mainContent">
+                <!-- Drive Saya Content -->
+                <div id="driveSayaContent">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-4xl font-normal text-gray-800">Drive Saya</h1>
+                            <button class="p-1 rounded hover:bg-gray-100">
+                                <span class="material-icons text-gray-500">arrow_drop_down</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button class="p-2 rounded-full hover:bg-gray-100">
+                                <span class="material-icons text-gray-500">info_outline</span>
+                            </button>
+                            <div class="flex gap-1">
+                                <button class="view-btn active border border-gray-300 p-2 rounded hover:bg-gray-100 bg-blue-50 border-blue-600 text-blue-600" data-view="list">
+                                    <span class="material-icons">view_list</span>
+                                </button>
+                                <button class="view-btn border border-gray-300 p-2 rounded hover:bg-gray-100 text-gray-500" data-view="grid">
+                                    <span class="material-icons">view_module</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-4 gap-4">
+                        <div class="flex gap-2 flex-1">
+                            <button class="border border-gray-300 rounded-2xl px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all flex items-center gap-1">
+                                <span>Jenis</span>
+                                <span class="material-icons text-lg text-gray-500">arrow_drop_down</span>
+                            </button>
+                            <button class="border border-gray-300 rounded-2xl px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all flex items-center gap-1">
+                                <span>Orang</span>
+                                <span class="material-icons text-lg text-gray-500">arrow_drop_down</span>
+                            </button>
+                            <button class="border border-gray-300 rounded-2xl px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all flex items-center gap-1">
+                                <span>Dimodifikasi</span>
+                                <span class="material-icons text-lg text-gray-500">arrow_drop_down</span>
+                            </button>
+                            <button class="border border-gray-300 rounded-2xl px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all flex items-center gap-1">
+                                <span>Sumber</span>
+                                <span class="material-icons text-lg text-gray-500">arrow_drop_down</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- File Table with Perfect Alignment -->
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-4 gap-x-4 px-4 py-3 bg-gray-50 border-b border-gray-200 text-xs font-medium text-gray-600 uppercase tracking-wide">
+                            <div class="flex items-center gap-1 min-w-[280px]">
+                                <span>Nama</span>
+                                <span class="material-icons text-sm text-gray-500">arrow_drop_up</span>
+                            </div>
+                            <div class="min-w-[120px] text-center">Pemilik</div>
+                            <div class="min-w-[140px] text-center">Tanggal diubah</div>
+                            <div class="min-w-[100px] text-center">Ukuran file</div>
+                        </div>
+                        
+                        <!-- File List Container with Overflow -->
+                        <div class="overflow-x-auto">
+                            <div id="fileTableBody">
+                                <!-- Files will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Mock Data with Emoji Icons
+        const mockFiles = [
+            { name: "All File", type: "folder", icon: "📁", owner: "saya", modified: "—", size: "—" },
+            { name: "App", type: "folder", icon: "📁", owner: "saya", modified: "2 Jun", size: "—" },
+            { name: "BACKUP JUNI 2025", type: "folder", icon: "📁", owner: "saya", modified: "29 Jun", size: "—" },
+            { name: "BackupCache", type: "folder", icon: "📁", owner: "saya", modified: "29 Jun", size: "—" },
+            { name: "BackupDestination", type: "folder", icon: "📁", owner: "saya", modified: "30 Jun", size: "—" },
+            { name: "Colab Notebooks", type: "folder", icon: "📂", owner: "saya", modified: "26 Jun", size: "—" },
+            { name: "Data baru", type: "folder", icon: "📁", owner: "saya", modified: "16 Mei 2024", size: "—" },
+            { name: "Data PT", type: "folder", icon: "📁", owner: "saya", modified: "16 Mei 2024", size: "—" },
+            { name: "Folder tanpa nama", type: "folder", icon: "📁", owner: "saya", modified: "11 Jan 2024", size: "—" },
+            { name: "KEY SSH", type: "folder", icon: "🔐", owner: "saya", modified: "2 Mei", size: "—" },
+            { name: "LOG_TRANSFER", type: "folder", icon: "📁", owner: "saya", modified: "29 Jun", size: "—" },
+            { name: "Paspor", type: "folder", icon: "📁", owner: "saya", modified: "5 Jun", size: "—" },
+            { name: "Proof of transaction", type: "file", icon: "📄", owner: "saya", modified: "18 Okt 2024", size: "2.3 MB" },
+            { name: "tes", type: "file", icon: "📄", owner: "saya", modified: "17 Nov 2024", size: "1.2 KB" },
+            { name: "Toy", type: "folder", icon: "📁", owner: "saya", modified: "29 Jun", size: "—" },
+            { name: "Project Presentation.pptx", type: "file", icon: "📊", owner: "saya", modified: "15 Des 2024", size: "5.2 MB" },
+            { name: "Budget Analysis.xlsx", type: "file", icon: "📈", owner: "saya", modified: "14 Des 2024", size: "3.8 MB" },
+            { name: "Team Meeting Video.mp4", type: "video", icon: "🎥", owner: "saya", modified: "13 Des 2024", size: "125.6 MB" },
+            { name: "Annual Report 2024.pdf", type: "file", icon: "📕", owner: "saya", modified: "12 Des 2024", size: "8.9 MB" },
+            { name: "Profile Picture.jpg", type: "image", icon: "🖼️", owner: "saya", modified: "11 Des 2024", size: "2.1 MB" }
+        ];
+
+        // DOM elements
+        const fileTableBody = document.getElementById('fileTableBody');
+        const newBtn = document.getElementById('newBtn');
+        const newDropdown = document.getElementById('newDropdown');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFileTable();
+            initializeEventListeners();
+        });
+
+        function renderFileTable() {
+            if (!fileTableBody) return;
+            
+            fileTableBody.innerHTML = mockFiles.map(file => `
+                <div class="file-table-row grid grid-cols-4 gap-x-4 px-4 py-3 border-b border-gray-100 cursor-pointer items-center" onclick="openFile('${file.name}', '${file.type}')">
+                    <!-- Name Column with Icon -->
+                    <div class="flex items-center gap-3 min-w-[280px]">
+                        <span class="file-icon text-lg flex-shrink-0">${file.icon}</span>
+                        <span class="text-sm text-gray-800 font-normal truncate truncate-filename">${file.name}</span>
+                    </div>
+                    
+                    <!-- Owner Column -->
+                    <div class="flex items-center justify-center gap-2 text-sm text-gray-500 min-w-[120px]">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiNFNzRDM0MiLz4KPC9zdmc+" alt="Owner" class="w-5 h-5 rounded-full flex-shrink-0">
+                        <span class="truncate">${file.owner}</span>
+                    </div>
+                    
+                    <!-- Modified Date Column -->
+                    <div class="text-sm text-gray-500 text-center min-w-[140px] truncate">
+                        ${file.modified}
+                    </div>
+                    
+                    <!-- Size Column -->
+                    <div class="flex items-center justify-between min-w-[100px]">
+                        <span class="text-sm text-gray-500 flex-grow text-center">${file.size}</span>
+                        <button class="p-1 rounded hover:bg-gray-200 transition-colors ml-2 flex-shrink-0" onclick="event.stopPropagation(); showFileMenu('${file.name}')">
+                            <span class="material-icons text-gray-500 text-lg">more_vert</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initializeEventListeners() {
+            // + New button dropdown functionality
+            newBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!newDropdown.contains(e.target) && !newBtn.contains(e.target)) {
+                    closeDropdown();
+                }
+            });
+
+            // Dropdown menu items
+            document.getElementById('newFolder').addEventListener('click', function() {
+                alert('New Folder clicked!');
+                closeDropdown();
+            });
+
+            document.getElementById('fileUpload').addEventListener('click', function() {
+                alert('File Upload clicked!');
+                closeDropdown();
+            });
+
+            document.getElementById('urlUpload').addEventListener('click', function() {
+                alert('URL Upload clicked!');
+                closeDropdown();
+            });
+
+            // View toggle buttons
+            const viewBtns = document.querySelectorAll('.view-btn');
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const view = this.getAttribute('data-view');
+                    toggleView(view, this);
+                });
+            });
+        }
+
+        function toggleDropdown() {
+            if (newDropdown.classList.contains('hidden')) {
+                newDropdown.classList.remove('hidden');
+                newDropdown.style.opacity = '0';
+                newDropdown.style.transform = 'translateY(-10px)';
+                
+                setTimeout(() => {
+                    newDropdown.style.transition = 'all 0.2s ease-out';
+                    newDropdown.style.opacity = '1';
+                    newDropdown.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                closeDropdown();
+            }
+        }
+
+        function closeDropdown() {
+            newDropdown.style.transition = 'all 0.15s ease-in';
+            newDropdown.style.opacity = '0';
+            newDropdown.style.transform = 'translateY(-10px)';
+            
+            setTimeout(() => {
+                newDropdown.classList.add('hidden');
+                newDropdown.style.transition = '';
+            }, 150);
+        }
+
+        function toggleView(view, btn) {
+            document.querySelectorAll('.view-btn').forEach(b => {
+                b.classList.remove('active', 'bg-blue-50', 'border-blue-600', 'text-blue-600');
+                b.classList.add('text-gray-500');
+            });
+            
+            btn.classList.add('active', 'bg-blue-50', 'border-blue-600', 'text-blue-600');
+            btn.classList.remove('text-gray-500');
+            
+            console.log(`Switched to ${view} view`);
+        }
+
+        function openFile(name, type) {
+            if (type === 'folder') {
+                alert(`Membuka folder: ${name}`);
+            } else {
+                alert(`Membuka file: ${name}`);
+            }
+        }
+
+        function showFileMenu(name) {
+            alert(`Menu untuk: ${name}`);
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.menu-btn').addEventListener('click', function() {
+            const sidebar = document.querySelector('aside');
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Responsive behavior
+        function handleResize() {
+            if (window.innerWidth < 768) {
+                const sidebar = document.querySelector('aside');
+                sidebar.classList.add('absolute', 'z-40', 'h-full');
+            } else {
+                const sidebar = document.querySelector('aside');
+                sidebar.classList.remove('absolute', 'z-40', 'h-full', 'hidden');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+    </script>
+</body>
+</html>
